@@ -1,0 +1,128 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom right, #8BC34A, #4CAF50); /* Cores verdes do campo */
+    color: #333;
+    overflow: hidden; /* Para evitar scroll */
+}
+
+.game-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+}
+
+h1 {
+    color: #2E7D32; /* Verde mais escuro */
+    margin-bottom: 20px;
+}
+
+.score-board {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.game-area {
+    border: 3px dashed #A5D6A7; /* Borda tracejada para a área de jogo */
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+}
+
+.item {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.1s ease-out, opacity 0.3s ease-out; /* Animação ao clicar */
+    animation: float 5s infinite ease-in-out alternate; /* Animação de flutuar */
+}
+
+/* Tipos de itens do Agrinho 2025 */
+.item.plastic {
+    background-color: #007bff; /* Azul */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 1.01L8 1c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h8c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM16 21H8v-1h8v1zm0-3H8V6h8v12zM8 4V3h8v1H8z"/></svg>');
+}
+
+.item.paper {
+    background-color: #FFC107; /* Amarelo */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 0h-2c0-.55.45-1 1-1s1 .45 1 1zm7 16H5V5h14v14zM10 7H7v2h3V7zm0 4H7v2h3v-2zm0 4H7v2h3v-2zm4-8h-3v2h3V7zm0 4h-3v2h3v-2zm0 4h-3v2h3v-2zm4-8h-3v2h3V7zm0 4h-3v2h3v-2zm0 4h-3v2h3v-2z"/></svg>');
+}
+
+.item.organic {
+    background-color: #6C757D; /* Cinza */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>');
+}
+
+.item.glass {
+    background-color: #28A745; /* Verde */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H3V7h18v10zm-12-8H6V7h3v2zm0 2H6v2h3v-2zm0 2H6v2h3v-2zm4-4h-3v2h3v-2zm0 2h-3v2h3v-2zm0 2h-3v2h3v-2zm4-4h-3v2h3v-2zm0 2h-3v2h3v-2zm0 2h-3v2h3v-2z"/></svg>');
+}
+
+/* Efeito de clique: reduz o tamanho e some */
+.item.clicked {
+    transform: scale(0);
+    opacity: 0;
+}
+
+/* Animação para os itens flutuarem */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Mensagem de Fim de Jogo */
+.hidden {
+    display: none;
+}
+
+#game-over-message {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#game-over-message h2 {
+    color: #D32F2F; /* Vermelho */
+}
+
+#game-over-message p {
+    font-size: 1.3em;
+    color: #333;
+}
